@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { BrowserRouter as Router  } from "react-router-dom";
 import './App.css';
+import Components from './components/index.jsx';
+import ScrollToTop from './scroll.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  constructor() {
+      super();
+      this.state = {
+        base_url: 'http://localhost:8080/', // The base_url 
+        api_url: '' // Tha api url
+      }
+  }
+
+  render() {
+    return (
+        <Router basename={'/'}> {/* For production - Change to base directory folder name Eg. https://localhost/basename/  */}
+          <ScrollToTop>
+            <Components base_url={this.state.base_url} api_url={this.state.api_url} />
+          </ScrollToTop>
+        </Router>
+    );
+  }
 }
 
 export default App;
