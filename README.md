@@ -11,7 +11,7 @@ MY REACT APP WITH WEBPACK 4.0
 ```{"presets": ["@babel/preset-env", "@babel/preset-react"]}```
 
 ## Add Webpack 4.0
-•	npm i webpack --save-dev
+•	`npm i webpack --save-dev`
 •	npm i webpack-cli --save-dev
 •	npm i --save-dev html-webpack-plugin
 •	npm install --save-dev mini-css-extract-plugin
@@ -104,7 +104,6 @@ To
   ```
 
 •	In your production file, create an .htaccess file and add the following lines.
-<!—BEGINNING OF FILE -->
 ```
 # Map all non-existing URLs to be processed by index.html,
 # so any URL that doesn't point to a JS file, CSS file, etc etc...
@@ -121,7 +120,6 @@ RewriteCond %{REQUEST_URI} !=/favicon.ico
 RewriteRule ^ index.html [L]
 </IfModule>
 ```
-<!—END OF FILE -->
 •	Copy the index.html, favicon.ico, manifest.json file and all your directory folders into the src folder
 •	Then you can delete the public folder
 •	Inside the index.html file remove any %PUBLIC_FOLDER% in the link tags
