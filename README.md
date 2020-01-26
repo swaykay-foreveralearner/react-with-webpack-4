@@ -1,8 +1,8 @@
 MY REACT APP WITH WEBPACK 4.0
 ## Install React JS
-•	``npm install -g create-react-app``\
+•	``npm install -g create-react-app``
 ## Start a new React project
-•	``npx create-react-app project``\
+•	``npx create-react-app project``
 ## Add babel rc to React JS
 •	``npm i @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev``\
 •	Create a new ``.babelrc`` (just like .htaccess)\
@@ -19,7 +19,7 @@ MY REACT APP WITH WEBPACK 4.0
 •	``npm install url-loader --save-dev``\
 •	``npm i html-webpack-plugin html-loader --save-dev``\
 •	``npm install --save-dev css-loader``\
-•	Create a ``webpack.config.js`` file and add the following lines\
+•	Create a ``webpack.config.js`` file and add the following lines
 
 ```
 const HtmlWebPackPlugin = require("html-webpack-plugin");
@@ -85,7 +85,7 @@ module.exports = {
   ]
 };
 ```
-•	Next, go to package.json in your React JS and edit\
+•	Next, go to package.json in your React JS and edit
 ```
 "scripts": {
     "start": "react-scripts start",
@@ -95,7 +95,7 @@ module.exports = {
   }
   ```
 
-To\
+To
 ```
 "scripts": {
     "start": "webpack-dev-server --open --mode development",
@@ -103,7 +103,7 @@ To\
   },
   ```
 
-•	In your production file, create an .htaccess file and add the following lines.\
+•	In your production file, create an .htaccess file and add the following lines.
 ```
 # Map all non-existing URLs to be processed by index.html,
 # so any URL that doesn't point to a JS file, CSS file, etc etc...
@@ -124,4 +124,4 @@ RewriteRule ^ index.html [L]
 •	Then you can delete the public folder\
 •	Inside the ``index.html`` file remove any %PUBLIC_FOLDER% in the link tags\
 •	Then run ``npm start``\
-•	To build ``npm run build``\
+•	To build ``npm run build``
