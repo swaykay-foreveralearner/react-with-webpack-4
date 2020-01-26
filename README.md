@@ -1,68 +1,129 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MY REACT APP WITH WEBPACK 4.0
+## Install React JS
+•	npm install -g create-react-app
+## Start a new React project
+•	npx create-react-app project
+## Add babel rc to React JS
+•	npm i @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev
+•	Create a new .babelrc (just like .htaccess)
+•	Add the following line
 
-## Available Scripts
+```{"presets": ["@babel/preset-env", "@babel/preset-react"]}```
 
-In the project directory, you can run:
+## Add Webpack 4.0
+•	npm i webpack --save-dev
+•	npm i webpack-cli --save-dev
+•	npm i --save-dev html-webpack-plugin
+•	npm install --save-dev mini-css-extract-plugin
+•	npm i -D copy-webpack-plugin
+•	npm install url-loader --save-dev
+•	npm i html-webpack-plugin html-loader --save-dev
+•	npm install --save-dev css-loader
+•	Create a webpack.config.js file and add the following lines
 
-### `yarn start`
+```
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.js',
+    publicPath: '/' // For production - base directory folder name
+  },
+  devServer: {
+    historyApiFallback: true,
+    host: 'localhost',
+    port: 8080, // change to 80 for production
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+            options: { minimize: true }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
+      },
+      { 
+        test: /\.(cur|jpg|jpeg|gif|png|woff|woff2|eot|ttf|svg)$/,
+        loader: "url-loader?limit=50000&name=fonts/[name].[ext]" // For production - url-loader?limit=50000&name=/fonts/[name].[ext]
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: "./src/index.html", // for compiling html file in src folder
+      filename: "./index.html"
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    }),
+    new CopyWebpackPlugin([
+      // for compiling directories in src folder
+      {from:'src/images',to:'images'},
+      {from:'src/assets',to:'assets'} ,
+      {from:'src/media',to:'media'} 
+    ]),
+  ]
+};
+```
+•	Next, go to package.json in your React JS and edit
+```
+"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+  ```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+To
+```
+"scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "build": "webpack --mode production"
+  },
+  ```
 
-### `yarn test`
+•	In your production file, create an .htaccess file and add the following lines.
+<!—BEGINNING OF FILE -->
+```
+# Map all non-existing URLs to be processed by index.html,
+# so any URL that doesn't point to a JS file, CSS file, etc etc...
+# goes through my React app.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<IfModule mod_rewrite.c> 
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !=/favicon.ico
+RewriteRule ^ index.html [L]
+</IfModule>
+```
+<!—END OF FILE -->
+•	Copy the index.html, favicon.ico, manifest.json file and all your directory folders into the src folder
+•	Then you can delete the public folder
+•	Inside the index.html file remove any %PUBLIC_FOLDER% in the link tags
+•	Then run “npm start”
+•	To build “npm run build”
