@@ -56,17 +56,9 @@ module.exports = {
         }), 
         new CopyWebpackPlugin([ // Compiles directories in src folder 
             {
-                from:'src/images',
-                to:'images'
-            },
-            {
                 from:'src/assets',
                 to:'assets'
-            }, 
-            {
-                from:'src/media',
-                to:'media'
-            } 
+            }
         ])
     ] 
 };
