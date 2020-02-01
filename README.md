@@ -164,7 +164,7 @@ import Scripts from './scripts.jsx';
   }
 ```
 • Create another file named scroll.js and add the following code\
-• Then inside your app.js file add the following lines
+• Inside your app.js file add the following lines
 
 ```
 import React, { Component } from 'react'; 
@@ -215,7 +215,7 @@ export default App;
 ```
 
 •	Copy the ``index.html, favicon.ico, manifest.json`` file and all your directory folders into the src folder\
-•	Then you can delete the public folder\
+•	You can delete the public folder\
 •	Inside the ``index.html`` file remove any %PUBLIC_FOLDER% in the link tags\
-•	Then run ``npm start``\
+•	Run ``npm start``\
 •	To build ``npm run build``
