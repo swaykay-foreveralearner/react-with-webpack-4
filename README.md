@@ -123,7 +123,7 @@ RewriteRule ^ index.html [L]
 ## REACT WITH EXTERNAL JS AND AUTO SCROLL UP
 • Run ``npm install --save react-helmet``\
 • Inside your src folder create a file called ``scripts.jsx``\
-• Add the following code\
+• Add the following code
 ```
 import React, { Component } from 'react'; 
 import {Helmet} from "react-helmet"; 
@@ -143,7 +143,7 @@ class Scripts extends Component {
 } 
 export default Scripts;
 ```
-• Next for every component you create add the following code\
+• Next for every component you create add the following code
 
 ```
 import Scripts from './scripts.jsx';
@@ -164,7 +164,7 @@ import Scripts from './scripts.jsx';
   }
 ```
 • Create another file named scroll.js and add the following code\
-• Then inside your app.js file add the following lines\
+• Then inside your app.js file add the following lines
 
 ```
 import React, { Component } from 'react'; 
