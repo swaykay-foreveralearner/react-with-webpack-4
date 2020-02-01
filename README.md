@@ -120,6 +120,100 @@ RewriteCond %{REQUEST_URI} !=/favicon.ico
 RewriteRule ^ index.html [L]
 </IfModule>
 ```
+## REACT WITH EXTERNAL JS AND AUTO SCROLL UP
+• Run ``npm install --save react-helmet``\
+• Inside your src folder create a file called ``scripts.jsx``\
+• Add the following code\
+```
+import React, { Component } from 'react'; 
+import {Helmet} from "react-helmet"; 
+
+class Scripts extends Component { 
+  constructor(props) { 
+    super(props); 
+    this.state = { } 
+  } 
+  render() { 
+    return ( 
+      <Helmet> 
+        <script src='js/vendor.js'></script> 
+      </Helmet> 
+    ); 
+  } 
+} 
+export default Scripts;
+```
+• Next for every component you create add the following code\
+
+```
+import Scripts from './scripts.jsx';
+```
+
+```
+  componentWillUnmount() { 
+    $("head").find('script').remove(); 
+  }
+ ```
+ 
+ ```
+  render() { 
+    return [ 
+      <div key="08"></div>, 
+      <Scripts key="script" /> 
+    ];
+  }
+```
+• Create another file named scroll.js and add the following code\
+• Then inside your app.js file add the following lines\
+
+```
+import React, { Component } from 'react'; 
+import {withRouter } from "react-router-dom"; 
+import $ from 'jquery'; 
+
+class ScrollToTop extends Component { 
+  componentDidUpdate(prevProps) { 
+    if (this.props.location !== prevProps.location) { 
+      $('html, body').animate({scrollTop:0}, 'slow') 
+    } 
+  } 
+  render() { 
+    return this.props.children 
+  } 
+} 
+export default withRouter(ScrollToTop);
+```
+
+```
+import React, { Component } from 'react';
+import { BrowserRouter as Router  } from "react-router-dom";
+import './App.css';
+import Components from './components/index.jsx';
+import ScrollToTop from './scroll.js';
+
+class App extends Component {
+  constructor() {
+      super();
+      this.state = {
+        base_url: 'http://localhost:8080/', // The base_url 
+        api_url: '' // Tha api url
+      }
+  }
+
+  render() {
+    return (
+        <Router basename={'/'}> {/* For production - Change to base directory folder name Eg. https://localhost/basename/  */}
+          <ScrollToTop>
+            <Components base_url={this.state.base_url} api_url={this.state.api_url} />
+          </ScrollToTop>
+        </Router>
+    );
+  }
+}
+
+export default App;
+```
+
 •	Copy the ``index.html, favicon.ico, manifest.json`` file and all your directory folders into the src folder\
 •	Then you can delete the public folder\
 •	Inside the ``index.html`` file remove any %PUBLIC_FOLDER% in the link tags\
