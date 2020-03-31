@@ -9,7 +9,7 @@ class Scripts extends Component {
     render() { 
         return ( 
             <Helmet> 
-                <script src='assets/js/vendor.js'></script> 
+                <script src='assets/js/vendors.js'></script> 
             </Helmet> 
         ); 
     } 
